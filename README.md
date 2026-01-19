@@ -4,7 +4,36 @@ A deep learning-based system for automated brain MRI analysis, combining tumor s
 
 ---
 
-## 📋 Project Overview
+## � Table of Contents
+
+- [📋 Project Overview](#project-overview)
+- [🎯 Problem Statement & Motivation](#problem-statement--motivation)
+- [📊 Dataset Description](#dataset-description)
+- [🔍 Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+- [🔧 Image Preprocessing Pipeline](#image-preprocessing-pipeline)
+- [🏗️ Model Architecture](#️model-architecture)
+- [⚙️ Training Configuration](#️training-configuration)
+- [📈 Evaluation Metrics](#evaluation-metrics)
+- [🏆 Results & Performance](#results--performance)
+- [🔬 Model Explainability](#model-explainability)
+- [📁 Project Structure](#project-structure)
+- [🛠️ Environment Setup](#️environment-setup)
+- [🔐 Environment Variables](#environment-variables)
+- [🚀 Running the Project](#running-the-project)
+- [⚠️ Limitations](#️limitations)
+- [🚀 Future Improvements](#future-improvements)
+- [🛠️ Tech Stack](#️tech-stack)
+- [⚖️ Ethical Considerations & Disclaimer](#️ethical-considerations--disclaimer)
+- [📚 References](#references)
+- [👨‍💻 Author Information](#author-information)
+- [🙏 Acknowledgments](#acknowledgments)
+- [📄 License](#license)
+- [📞 Contact & Support](#contact--support)
+- [🌟 Star History](#star-history)
+
+---
+
+## �📋 Project Overview
 
 NeuroScan is a dual-task deep learning solution designed to:
 1. **Segment** tumor regions from brain MRI scans using U-Net and Attention U-Net architectures
