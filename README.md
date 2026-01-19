@@ -6,34 +6,34 @@ A deep learning-based system for automated brain MRI analysis, combining tumor s
 
 ## � Table of Contents
 
-- [📋 Project Overview](#project-overview)
-- [🎯 Problem Statement & Motivation](#problem-statement--motivation)
-- [📊 Dataset Description](#dataset-description)
-- [🔍 Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
-- [🔧 Image Preprocessing Pipeline](#image-preprocessing-pipeline)
-- [🏗️ Model Architecture](#️model-architecture)
-- [⚙️ Training Configuration](#️training-configuration)
-- [📈 Evaluation Metrics](#evaluation-metrics)
-- [🏆 Results & Performance](#results--performance)
-- [🔬 Model Explainability](#model-explainability)
-- [📁 Project Structure](#project-structure)
-- [🛠️ Environment Setup](#️environment-setup)
-- [🔐 Environment Variables](#environment-variables)
-- [🚀 Running the Project](#running-the-project)
-- [⚠️ Limitations](#️limitations)
-- [🚀 Future Improvements](#future-improvements)
-- [🛠️ Tech Stack](#️tech-stack)
-- [⚖️ Ethical Considerations & Disclaimer](#️ethical-considerations--disclaimer)
-- [📚 References](#references)
-- [👨‍💻 Author Information](#author-information)
-- [🙏 Acknowledgments](#acknowledgments)
-- [📄 License](#license)
-- [📞 Contact & Support](#contact--support)
-- [🌟 Star History](#star-history)
+- [Project Overview](#project-overview)
+- [Problem Statement & Motivation](#problem-statement--motivation)
+- [Dataset Description](#dataset-description)
+- [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+- [Image Preprocessing Pipeline](#image-preprocessing-pipeline)
+- [Model Architecture](#model-architecture)
+- [Training Configuration](#training-configuration)
+- [Evaluation Metrics](#evaluation-metrics)
+- [Results & Performance](#results--performance)
+- [Model Explainability](#model-explainability)
+- [Project Structure](#project-structure)
+- [Environment Setup](#environment-setup)
+- [Environment Variables](#environment-variables)
+- [Running the Project](#running-the-project)
+- [Limitations](#limitations)
+- [Future Improvements](#future-improvements)
+- [Tech Stack](#tech-stack)
+- [Ethical Considerations & Disclaimer](#ethical-considerations--disclaimer)
+- [References](#references)
+- [Author Information](#author-information)
+- [Acknowledgments](#acknowledgments)
+- [License](#license)
+- [Contact & Support](#contact--support)
+- [Star History](#star-history)
 
 ---
 
-## �📋 Project Overview
+## Project Overview
 
 NeuroScan is a dual-task deep learning solution designed to:
 1. **Segment** tumor regions from brain MRI scans using U-Net and Attention U-Net architectures
@@ -43,7 +43,7 @@ This system addresses critical challenges in medical imaging by automating time-
 
 ---
 
-## 🎯 Problem Statement & Motivation
+## Problem Statement & Motivation
 
 ### Clinical Challenge
 Brain tumors are among the most life-threatening conditions, requiring accurate and timely diagnosis for effective treatment planning. Manual analysis of MRI scans is:
@@ -66,7 +66,7 @@ NeuroScan leverages convolutional neural networks (CNNs) to:
 
 ---
 
-## 📊 Dataset Description
+## Dataset Description
 
 ### Source
 **BRISC2025 Dataset** from Kaggle (`briscdataset/brisc2025`)
@@ -75,23 +75,23 @@ NeuroScan leverages convolutional neural networks (CNNs) to:
 ```
 brisc2025/
 ├── segmentation_task/
-│   ├── train/
-│   │   ├── images/     # Brain MRI scans
-│   │   └── masks/      # Binary tumor masks
-│   └── test/
-│       ├── images/
-│       └── masks/
+│ ├── train/
+│ │ ├── images/ # Brain MRI scans
+│ │ └── masks/ # Binary tumor masks
+│ └── test/
+│ ├── images/
+│ └── masks/
 └── classification_task/
-    ├── train/
-    │   ├── glioma/
-    │   ├── meningioma/
-    │   ├── no_tumor/
-    │   └── pituitary/
-    └── test/
-        ├── glioma/
-        ├── meningioma/
-        ├── no_tumor/
-        └── pituitary/
+ ├── train/
+ │ ├── glioma/
+ │ ├── meningioma/
+ │ ├── no_tumor/
+ │ └── pituitary/
+ └── test/
+ ├── glioma/
+ ├── meningioma/
+ ├── no_tumor/
+ └── pituitary/
 ```
 
 ### MRI Modalities
@@ -110,8 +110,8 @@ brisc2025/
 ### Dataset Statistics
 - **Segmentation Task**: ~1,000+ training image-mask pairs
 - **Classification Task**: 
-  - Training samples per class: 300-500 images (varies by class)
-  - Test samples per class: 50-100 images
+ - Training samples per class: 300-500 images (varies by class)
+ - Test samples per class: 50-100 images
 - **Class Balance**: Relatively balanced with minor imbalances handled through weighted loss functions
 
 ### Licensing & Ethics
@@ -121,7 +121,7 @@ brisc2025/
 
 ---
 
-## 🔍 Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
 ### 1. Data Validation
 - **Image-Mask Pairing**: ID-based matching algorithm implemented to ensure correct correspondence
@@ -160,15 +160,15 @@ brisc2025/
 
 ---
 
-## 🔧 Image Preprocessing Pipeline
+## Image Preprocessing Pipeline
 
 ### Step 1: Image Loading
 ```python
 Input: Raw MRI image (variable dimensions)
 Process: 
-  - Load using OpenCV (cv2.imread)
-  - Convert BGR to RGB color space
-  - Verify image integrity
+ - Load using OpenCV (cv2.imread)
+ - Convert BGR to RGB color space
+ - Verify image integrity
 ```
 
 ### Step 2: Resizing
@@ -176,9 +176,9 @@ Process:
 Target Size: 256×256 pixels
 Method: Bilinear interpolation (Albumentations library)
 Rationale: 
-  - Computational efficiency
-  - Consistent batch processing
-  - Preserves spatial features
+ - Computational efficiency
+ - Consistent batch processing
+ - Preserves spatial features
 ```
 
 ### Step 3: Normalization
@@ -187,9 +187,9 @@ Method: ImageNet statistics normalization
 Mean: [0.485, 0.456, 0.406]
 Std: [0.229, 0.224, 0.225]
 Rationale: 
-  - Facilitates transfer learning
-  - Stabilizes gradient descent
-  - Standard practice for pretrained models
+ - Facilitates transfer learning
+ - Stabilizes gradient descent
+ - Standard practice for pretrained models
 ```
 
 ### Step 4: Data Augmentation (Training Only)
@@ -199,30 +199,30 @@ Rationale:
 - **Vertical Flip** (p=0.5): Additional orientation variation
 - **Random Rotation 90°** (p=0.5): Exploits rotational invariance
 - **ShiftScaleRotate** (p=0.6): Simulates patient positioning variations
-  - Shift limit: ±15%
-  - Scale limit: ±15%
-  - Rotation limit: ±25°
+ - Shift limit: ±15%
+ - Scale limit: ±15%
+ - Rotation limit: ±25°
 
 #### Intensity Augmentations
 - **Random Brightness/Contrast** (p=0.7): Simulates scanner variations
-  - Brightness limit: ±30%
-  - Contrast limit: ±30%
+ - Brightness limit: ±30%
+ - Contrast limit: ±30%
 - **Random Gamma** (p=0.5): Exposure variations (γ ∈ [0.8, 1.2])
 - **Gaussian Noise** (p=0.3): Mimics acquisition noise (var ∈ [10, 50])
 - **Gaussian Blur** (p=0.3): Reduces high-frequency artifacts (kernel ∈ [3, 7])
 
 #### Color Augmentations
 - **Hue/Saturation/Value** (p=0.4): Color space perturbations
-  - Hue shift: ±20
-  - Saturation shift: ±30
-  - Value shift: ±20
+ - Hue shift: ±20
+ - Saturation shift: ±30
+ - Value shift: ±20
 
 ### Step 5: Mask Processing
 ```python
 Process:
-  - Load mask as grayscale
-  - Binarize: threshold at 127 (0/1 values)
-  - Ensure spatial consistency with image augmentations
+ - Load mask as grayscale
+ - Binarize: threshold at 127 (0/1 values)
+ - Ensure spatial consistency with image augmentations
 ```
 
 ### Validation Preprocessing
@@ -231,7 +231,7 @@ Process:
 
 ---
 
-## 🏗️ Model Architecture
+## Model Architecture
 
 ### 1. U-Net (Baseline Segmentation Model)
 
@@ -240,17 +240,17 @@ Process:
 Input: 256×256×3 RGB Image
 │
 ├─ Encoder (Contracting Path)
-│  ├─ DoubleConv Block (3→64) + BatchNorm + ReLU
-│  ├─ MaxPool(2×2) → DoubleConv (64→128)
-│  ├─ MaxPool(2×2) → DoubleConv (128→256)
-│  ├─ MaxPool(2×2) → DoubleConv (256→512)
-│  └─ MaxPool(2×2) → DoubleConv (512→1024) [Bottleneck]
+│ ├─ DoubleConv Block (3→64) + BatchNorm + ReLU
+│ ├─ MaxPool(2×2) → DoubleConv (64→128)
+│ ├─ MaxPool(2×2) → DoubleConv (128→256)
+│ ├─ MaxPool(2×2) → DoubleConv (256→512)
+│ └─ MaxPool(2×2) → DoubleConv (512→1024) [Bottleneck]
 │
 ├─ Decoder (Expanding Path)
-│  ├─ UpConv(1024→512) + Skip Connection → DoubleConv (1024→512)
-│  ├─ UpConv(512→256) + Skip Connection → DoubleConv (512→256)
-│  ├─ UpConv(256→128) + Skip Connection → DoubleConv (256→128)
-│  └─ UpConv(128→64) + Skip Connection → DoubleConv (128→64)
+│ ├─ UpConv(1024→512) + Skip Connection → DoubleConv (1024→512)
+│ ├─ UpConv(512→256) + Skip Connection → DoubleConv (512→256)
+│ ├─ UpConv(256→128) + Skip Connection → DoubleConv (256→128)
+│ └─ UpConv(128→64) + Skip Connection → DoubleConv (128→64)
 │
 └─ Output: Conv(64→1) → Sigmoid → 256×256×1 Binary Mask
 ```
@@ -275,18 +275,18 @@ Input: 256×256×3 RGB Image
 [Same Encoder as U-Net]
 │
 ├─ Decoder with Attention Gates
-│  ├─ UpConv(1024→512)
-│  │  └─ Attention Gate(g=512, x=512) → Weighted Skip Connection
-│  │     └─ DoubleConv (1024→512)
-│  ├─ UpConv(512→256)
-│  │  └─ Attention Gate(g=256, x=256) → Weighted Skip Connection
-│  │     └─ DoubleConv (512→256)
-│  ├─ UpConv(256→128)
-│  │  └─ Attention Gate(g=128, x=128) → Weighted Skip Connection
-│  │     └─ DoubleConv (256→128)
-│  └─ UpConv(128→64)
-│     └─ Attention Gate(g=64, x=64) → Weighted Skip Connection
-│        └─ DoubleConv (128→64)
+│ ├─ UpConv(1024→512)
+│ │ └─ Attention Gate(g=512, x=512) → Weighted Skip Connection
+│ │ └─ DoubleConv (1024→512)
+│ ├─ UpConv(512→256)
+│ │ └─ Attention Gate(g=256, x=256) → Weighted Skip Connection
+│ │ └─ DoubleConv (512→256)
+│ ├─ UpConv(256→128)
+│ │ └─ Attention Gate(g=128, x=128) → Weighted Skip Connection
+│ │ └─ DoubleConv (256→128)
+│ └─ UpConv(128→64)
+│ └─ Attention Gate(g=64, x=64) → Weighted Skip Connection
+│ └─ DoubleConv (128→64)
 │
 └─ Output: Conv(64→1) → Sigmoid → 256×256×1 Binary Mask
 ```
@@ -294,10 +294,10 @@ Input: 256×256×3 RGB Image
 #### Attention Gate Mechanism
 ```python
 Attention Gate(g, x):
-  W_g = Conv1×1(g) → BatchNorm
-  W_x = Conv1×1(x) → BatchNorm
-  ψ = ReLU(W_g + W_x) → Conv1×1 → BatchNorm → Sigmoid
-  return x * ψ  # Element-wise multiplication
+ W_g = Conv1×1(g) → BatchNorm
+ W_x = Conv1×1(x) → BatchNorm
+ ψ = ReLU(W_g + W_x) → Conv1×1 → BatchNorm → Sigmoid
+ return x * ψ # Element-wise multiplication
 ```
 
 **Purpose**: 
@@ -318,19 +318,19 @@ Attention Gate(g, x):
 Input: 256×256×3 RGB Image
 │
 ├─ Feature Extractor: ResNet18 (Pretrained on ImageNet)
-│  ├─ Initial Conv Layer (7×7, stride 2)
-│  ├─ Residual Blocks (4 stages)
-│  └─ Global Average Pooling → 512-D feature vector
+│ ├─ Initial Conv Layer (7×7, stride 2)
+│ ├─ Residual Blocks (4 stages)
+│ └─ Global Average Pooling → 512-D feature vector
 │
 ├─ Classification Head
-│  ├─ Dropout (p=0.5)
-│  ├─ FC (512→512) → BatchNorm → ReLU
-│  ├─ Dropout (p=0.4)
-│  ├─ FC (512→256) → BatchNorm → ReLU
-│  ├─ Dropout (p=0.3)
-│  ├─ FC (256→128) → BatchNorm → ReLU
-│  ├─ Dropout (p=0.2)
-│  └─ FC (128→4) → Softmax
+│ ├─ Dropout (p=0.5)
+│ ├─ FC (512→512) → BatchNorm → ReLU
+│ ├─ Dropout (p=0.4)
+│ ├─ FC (512→256) → BatchNorm → ReLU
+│ ├─ Dropout (p=0.3)
+│ ├─ FC (256→128) → BatchNorm → ReLU
+│ ├─ Dropout (p=0.2)
+│ └─ FC (128→4) → Softmax
 │
 └─ Output: [P(Glioma), P(Meningioma), P(No Tumor), P(Pituitary)]
 ```
@@ -358,7 +358,7 @@ Input: 256×256×3 RGB Image
 
 ---
 
-## ⚙️ Training Configuration
+## Training Configuration
 
 ### Loss Functions
 
@@ -390,7 +390,7 @@ Cross-Entropy Loss with Label Smoothing (ε=0.1)
 **Formula:**
 ```
 CE = -Σ[y'·log(ŷ)]
-where y' = (1-ε)·y + ε/K  (K = number of classes)
+where y' = (1-ε)·y + ε/K (K = number of classes)
 ```
 
 **Label Smoothing Benefits:**
@@ -431,9 +431,9 @@ T_mult: 2 (restart period multiplier)
 
 **Schedule Pattern:**
 ```
-Epoch 0-10:  LR decays 3e-4 → 1e-6 (cosine)
+Epoch 0-10: LR decays 3e-4 → 1e-6 (cosine)
 Epoch 10-30: LR resets to 3e-4, decays again (20 epochs)
-Epoch 30+:   LR resets, decays over 40 epochs
+Epoch 30+: LR resets, decays over 40 epochs
 ```
 
 **Benefits:**
@@ -495,7 +495,7 @@ torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
 ---
 
-## 📈 Evaluation Metrics
+## Evaluation Metrics
 
 ### Segmentation Metrics
 
@@ -506,10 +506,10 @@ Dice = 2·|Predicted ∩ Ground Truth| / (|Predicted| + |Ground Truth|)
 - **Range**: [0, 1], where 1 = perfect overlap
 - **Clinical Significance**: Most widely used in medical segmentation
 - **Interpretation**:
-  - Dice > 0.90: Excellent
-  - Dice 0.80-0.90: Good
-  - Dice 0.70-0.80: Acceptable
-  - Dice < 0.70: Poor
+ - Dice > 0.90: Excellent
+ - Dice 0.80-0.90: Good
+ - Dice 0.70-0.80: Acceptable
+ - Dice < 0.70: Poor
 
 #### 2. Intersection over Union (IoU / Jaccard Index)
 ```
@@ -565,10 +565,10 @@ AUC: Integral under the ROC curve
 ```
 - **Range**: [0, 1], where 1 = perfect classifier
 - **Interpretation**:
-  - AUC > 0.95: Excellent
-  - AUC 0.90-0.95: Very Good
-  - AUC 0.80-0.90: Good
-  - AUC < 0.80: Poor
+ - AUC > 0.95: Excellent
+ - AUC 0.90-0.95: Very Good
+ - AUC 0.80-0.90: Good
+ - AUC < 0.80: Poor
 - **Advantage**: Threshold-independent metric
 
 ---
@@ -576,26 +576,26 @@ AUC: Integral under the ROC curve
 ### Why These Metrics for Medical Imaging?
 
 1. **Dice Coefficient**: 
-   - Standard in medical segmentation challenges (BraTS, MICCAI)
-   - Robust to class imbalance
-   - Directly measures overlap quality
+ - Standard in medical segmentation challenges (BraTS, MICCAI)
+ - Robust to class imbalance
+ - Directly measures overlap quality
 
 2. **Accuracy + Precision + Recall**:
-   - **Accuracy**: Overall system performance
-   - **Precision**: Minimizes false alarms (reduces unnecessary treatments)
-   - **Recall**: Maximizes detection (reduces missed diagnoses)
+ - **Accuracy**: Overall system performance
+ - **Precision**: Minimizes false alarms (reduces unnecessary treatments)
+ - **Recall**: Maximizes detection (reduces missed diagnoses)
 
 3. **AUC-ROC**:
-   - Evaluates model's ability to rank predictions
-   - Important for adjusting decision thresholds in clinical settings
+ - Evaluates model's ability to rank predictions
+ - Important for adjusting decision thresholds in clinical settings
 
 4. **Confusion Matrix**:
-   - Reveals specific misclassification patterns
-   - Critical for identifying dangerous errors (e.g., malignant misclassified as benign)
+ - Reveals specific misclassification patterns
+ - Critical for identifying dangerous errors (e.g., malignant misclassified as benign)
 
 ---
 
-## 🏆 Results & Performance
+## Results & Performance
 
 ### Segmentation Results
 
@@ -645,7 +645,7 @@ AUC: Integral under the ROC curve
 **Observations:**
 1. **Best Performance**: "No Tumor" class (96.5% accuracy, AUC=0.992)
 2. **Most Challenging**: Pituitary tumors (89.7% accuracy)
-   - **Reason**: Smaller sample size, subtle imaging features
+ - **Reason**: Smaller sample size, subtle imaging features
 3. **Balanced Performance**: Minimal variance across classes (±7%)
 
 ---
@@ -668,19 +668,19 @@ AUC: Integral under the ROC curve
 
 #### Classification Confusion Matrix (Test Set)
 ```
-Predicted →     Glioma  Meningioma  No Tumor  Pituitary
+Predicted → Glioma Meningioma No Tumor Pituitary
 Actual ↓
-Glioma            74        2           0         2
-Meningioma        3        72           1         1
-No Tumor          0         1          85         2
-Pituitary         1         2           0        70
+Glioma 74 2 0 2
+Meningioma 3 72 1 1
+No Tumor 0 1 85 2
+Pituitary 1 2 0 70
 ```
 
 **Key Findings:**
 1. **Diagonal Dominance**: Most predictions are correct
 2. **Common Misclassifications**:
-   - Glioma ↔ Pituitary (4 cases): Similar imaging characteristics
-   - Meningioma ↔ Glioma (5 cases): Overlapping anatomical regions
+ - Glioma ↔ Pituitary (4 cases): Similar imaging characteristics
+ - Meningioma ↔ Glioma (5 cases): Overlapping anatomical regions
 3. **No Critical Errors**: No "No Tumor" cases misclassified as tumor (critical safety aspect)
 
 ---
@@ -698,7 +698,7 @@ Pituitary         1         2           0        70
 
 ---
 
-## 🔬 Model Explainability
+## Model Explainability
 
 ### Visualization Techniques Implemented
 
@@ -746,50 +746,50 @@ Pituitary         1         2           0        70
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 NeuroScan/
 │
-├── README.md                          # This file
-├── requirements.txt                   # Python dependencies
-├── .gitignore                         # Git ignore rules
+├── README.md # This file
+├── requirements.txt # Python dependencies
+├── .gitignore # Git ignore rules
 │
-├── NeuroScan - Brain Tumor Classifier.ipynb  # Main Jupyter Notebook
+├── NeuroScan - Brain Tumor Classifier.ipynb # Main Jupyter Notebook
 │
-├── data/                              # Dataset (not included in repo)
-│   └── brisc2025/
-│       ├── segmentation_task/
-│       └── classification_task/
+├── data/ # Dataset (not included in repo)
+│ └── brisc2025/
+│ ├── segmentation_task/
+│ └── classification_task/
 │
-├── results/                           # Training outputs
-│   ├── models/                        # Saved model weights
-│   │   ├── best_unet.pth
-│   │   ├── best_attention_unet.pth
-│   │   └── best_classifier.pth
-│   │
-│   ├── plots/                         # Visualizations
-│   │   ├── data_exploration_segmentation.png
-│   │   ├── class_distribution.png
-│   │   ├── tumor_size_distribution.png
-│   │   ├── training_curves_comparison.png
-│   │   ├── model_comparison_final.png
-│   │   ├── confusion_matrix.png
-│   │   └── roc_curves.png
-│   │
-│   ├── history_unet.npy               # Training history arrays
-│   ├── history_attention.npy
-│   ├── history_classifier.npy
-│   │
-│   └── results_summary.csv            # Final metrics table
+├── results/ # Training outputs
+│ ├── models/ # Saved model weights
+│ │ ├── best_unet.pth
+│ │ ├── best_attention_unet.pth
+│ │ └── best_classifier.pth
+│ │
+│ ├── plots/ # Visualizations
+│ │ ├── data_exploration_segmentation.png
+│ │ ├── class_distribution.png
+│ │ ├── tumor_size_distribution.png
+│ │ ├── training_curves_comparison.png
+│ │ ├── model_comparison_final.png
+│ │ ├── confusion_matrix.png
+│ │ └── roc_curves.png
+│ │
+│ ├── history_unet.npy # Training history arrays
+│ ├── history_attention.npy
+│ ├── history_classifier.npy
+│ │
+│ └── results_summary.csv # Final metrics table
 │
-└── inference/                         # Inference scripts (optional)
-    └── predict.py                     # Standalone inference script
+└── inference/ # Inference scripts (optional)
+ └── predict.py # Standalone inference script
 ```
 
 ---
 
-## 🛠️ Environment Setup
+## Environment Setup
 
 ### Prerequisites
 - **Python Version**: 3.8 or higher (3.9/3.10 recommended)
@@ -902,7 +902,7 @@ download_path = kagglehub.dataset_download("briscdataset/brisc2025")
 
 ---
 
-## 🔐 Environment Variables
+## Environment Variables
 
 ### Configuration
 
@@ -911,7 +911,7 @@ download_path = kagglehub.dataset_download("briscdataset/brisc2025")
 export DATASET_PATH="/path/to/brisc2025"
 export MODEL_DIR="./results/models"
 export PLOT_DIR="./results/plots"
-export CUDA_VISIBLE_DEVICES="0"  # Select GPU (optional)
+export CUDA_VISIBLE_DEVICES="0" # Select GPU (optional)
 ```
 
 **Windows (PowerShell):**
@@ -926,15 +926,15 @@ $env:CUDA_VISIBLE_DEVICES="0"
 Modify `Config` class in notebook (Cell 4):
 ```python
 class Config:
-    DATA_ROOT = r'C:\Users\YourName\data\brisc2025'  # Windows
-    # DATA_ROOT = '/home/user/data/brisc2025'       # Linux
-    MODEL_DIR = './results/models'
-    PLOT_DIR = './results/plots'
+ DATA_ROOT = r'C:\Users\YourName\data\brisc2025' # Windows
+ # DATA_ROOT = '/home/user/data/brisc2025' # Linux
+ MODEL_DIR = './results/models'
+ PLOT_DIR = './results/plots'
 ```
 
 ---
 
-## 🚀 Running the Project
+## Running the Project
 
 ### 1. Activate Virtual Environment
 **Linux / macOS:**
@@ -1052,8 +1052,8 @@ model.load_state_dict(torch.load('./results/models/best_unet.pth'))
 
 # Continue training
 for epoch in range(previous_epochs, total_epochs):
-    train_epoch(...)
-    validate_epoch(...)
+ train_epoch(...)
+ validate_epoch(...)
 ```
 
 ---
@@ -1069,73 +1069,73 @@ for epoch in range(previous_epochs, total_epochs):
 ```python
 # Save predictions to CSV
 predictions_df = pd.DataFrame({
-    'image_name': image_names,
-    'predicted_class': predicted_classes,
-    'confidence': confidence_scores
+ 'image_name': image_names,
+ 'predicted_class': predicted_classes,
+ 'confidence': confidence_scores
 })
 predictions_df.to_csv('./results/predictions.csv', index=False)
 ```
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 
 ### 1. Dataset Limitations
 - **Limited Diversity**: Dataset from single or few medical centers
-  - **Impact**: May not generalize to different scanners, protocols, or populations
+ - **Impact**: May not generalize to different scanners, protocols, or populations
 - **Class Imbalance**: Pituitary tumors underrepresented
-  - **Impact**: Lower accuracy for minority class
+ - **Impact**: Lower accuracy for minority class
 - **2D Slices vs. 3D Volumes**: No volumetric context
-  - **Impact**: Misses inter-slice tumor continuity
+ - **Impact**: Misses inter-slice tumor continuity
 
 ### 2. Model Generalization
 - **Scanner Dependency**: Trained on specific MRI sequences (T1/T2/FLAIR)
-  - **Risk**: Performance degradation on images from different scanners or protocols
+ - **Risk**: Performance degradation on images from different scanners or protocols
 - **Population Bias**: Dataset demographics may not represent global population
-  - **Risk**: Reduced accuracy for underrepresented age groups, ethnicities, or anatomical variations
+ - **Risk**: Reduced accuracy for underrepresented age groups, ethnicities, or anatomical variations
 - **Rare Tumor Types**: Only 4 classes (excludes less common tumors like lymphomas, metastases)
 
 ### 3. Clinical Deployment Constraints
 - **Not FDA-Approved**: System has not undergone regulatory approval process
-  - **Limitation**: Cannot be used as standalone diagnostic tool
+ - **Limitation**: Cannot be used as standalone diagnostic tool
 - **No Real-Time Processing**: Inference time (~200ms) may be too slow for intraoperative use
 - **No Uncertainty Quantification**: Model does not provide confidence intervals or uncertainty estimates
-  - **Risk**: Overconfident predictions on out-of-distribution samples
+ - **Risk**: Overconfident predictions on out-of-distribution samples
 
 ### 4. Technical Limitations
 - **Computational Requirements**: Requires high-end GPU (8GB+ VRAM)
-  - **Barrier**: Limited accessibility in resource-constrained settings
+ - **Barrier**: Limited accessibility in resource-constrained settings
 - **No Multi-Modal Fusion**: Does not integrate multiple MRI sequences (T1, T2, FLAIR simultaneously)
-  - **Missed Opportunity**: Radiologists use all sequences together for diagnosis
+ - **Missed Opportunity**: Radiologists use all sequences together for diagnosis
 - **Binary Segmentation Only**: Does not segment tumor sub-regions (necrotic core, edema, enhancing tumor)
-  - **Clinical Need**: Treatment planning requires detailed tumor characterization
+ - **Clinical Need**: Treatment planning requires detailed tumor characterization
 
 ### 5. Explainability Gaps
 - **No Grad-CAM**: Cannot visualize decision-making process
-  - **Trust Issue**: Clinicians may hesitate to rely on "black box" predictions
+ - **Trust Issue**: Clinicians may hesitate to rely on "black box" predictions
 - **No Failure Detection**: Model does not flag uncertain or out-of-distribution cases
-  - **Safety Risk**: Silent failures on unusual cases
+ - **Safety Risk**: Silent failures on unusual cases
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
 ### 1. Technical Enhancements
 
 #### A. Model Architecture
 - **3D U-Net**: Incorporate volumetric context from MRI stacks
-  - **Benefit**: +5-10% Dice improvement for small tumors
+ - **Benefit**: +5-10% Dice improvement for small tumors
 - **Multi-Task Learning**: Joint optimization of segmentation + classification in single model
-  - **Benefit**: Faster inference, shared feature learning
+ - **Benefit**: Faster inference, shared feature learning
 - **Transformer-Based Models**: Integrate Vision Transformers (ViT) or Swin Transformers
-  - **Benefit**: Better long-range dependencies, state-of-the-art performance
+ - **Benefit**: Better long-range dependencies, state-of-the-art performance
 - **Ensemble Methods**: Combine U-Net, Attention U-Net, and 3D U-Net predictions
-  - **Benefit**: Improved robustness, reduced variance
+ - **Benefit**: Improved robustness, reduced variance
 
 #### B. Data Augmentation & Preprocessing
 - **Advanced Augmentations**:
-  - CutMix / MixUp for segmentation
-  - Elastic deformations to simulate anatomical variations
+ - CutMix / MixUp for segmentation
+ - Elastic deformations to simulate anatomical variations
 - **Histogram Matching**: Normalize image intensities across different scanners
 - **Super-Resolution**: Upsample low-resolution scans using deep learning
 
@@ -1183,16 +1183,16 @@ predictions_df.to_csv('./results/predictions.csv', index=False)
 
 #### C. Explainable AI (XAI)
 - **Implement**:
-  - Grad-CAM++ for fine-grained activation maps
-  - Layer-wise relevance propagation (LRP)
-  - Counterfactual explanations ("If tumor were 10% smaller, prediction would change")
+ - Grad-CAM++ for fine-grained activation maps
+ - Layer-wise relevance propagation (LRP)
+ - Counterfactual explanations ("If tumor were 10% smaller, prediction would change")
 - **Impact**: Clinical trust, regulatory approval, error diagnosis
 
 #### D. Real-Time Inference Optimization
 - **Techniques**:
-  - Model quantization (INT8 precision)
-  - Knowledge distillation (compress to 1/4 size)
-  - TensorRT / ONNX runtime optimization
+ - Model quantization (INT8 precision)
+ - Knowledge distillation (compress to 1/4 size)
+ - TensorRT / ONNX runtime optimization
 - **Target**: <50ms per image (GPU), <500ms (CPU)
 - **Application**: Intraoperative guidance
 
@@ -1220,9 +1220,9 @@ predictions_df.to_csv('./results/predictions.csv', index=False)
 
 #### A. Web Application
 - **Features**:
-  - Drag-and-drop image upload
-  - Real-time prediction with visualization
-  - Report generation (PDF export)
+ - Drag-and-drop image upload
+ - Real-time prediction with visualization
+ - Report generation (PDF export)
 - **Tech Stack**: Flask/Django (backend), React (frontend), Docker (deployment)
 
 #### B. PACS Integration
@@ -1237,7 +1237,7 @@ predictions_df.to_csv('./results/predictions.csv', index=False)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Core Frameworks
 | Technology | Version | Purpose |
@@ -1275,7 +1275,7 @@ predictions_df.to_csv('./results/predictions.csv', index=False)
 
 ---
 
-## ⚖️ Ethical Considerations & Disclaimer
+## Ethical Considerations & Disclaimer
 
 ### Medical AI Ethics
 
@@ -1288,10 +1288,10 @@ predictions_df.to_csv('./results/predictions.csv', index=False)
 
 #### 2. Clinical Decision-Making
 **Guidelines for Medical Professionals:**
-- ✅ **Use As**: Second opinion, teaching tool, triage assistance
-- ❌ **Do Not Use As**: Sole basis for diagnosis or treatment decisions
-- ⚠️ **Always**: Confirm predictions with expert radiologists
-- 📋 **Document**: AI-assisted vs. human-only diagnoses in medical records
+- **Use As**: Second opinion, teaching tool, triage assistance
+- **Do Not Use As**: Sole basis for diagnosis or treatment decisions
+- **Always**: Confirm predictions with expert radiologists
+- **Document**: AI-assisted vs. human-only diagnoses in medical records
 
 #### 3. Informed Consent
 **If Used in Research:**
@@ -1302,11 +1302,11 @@ predictions_df.to_csv('./results/predictions.csv', index=False)
 #### 4. Bias & Fairness
 **Known Biases:**
 - **Dataset Demographics**: May underrepresent certain populations
-  - **Action**: Validate on diverse patient cohorts before deployment
+ - **Action**: Validate on diverse patient cohorts before deployment
 - **Scanner Variability**: Trained on specific MRI protocols
-  - **Action**: Test on different scanner models and manufacturers
+ - **Action**: Test on different scanner models and manufacturers
 - **Age/Gender Bias**: Performance may vary across demographics
-  - **Action**: Stratified evaluation by age, gender, ethnicity
+ - **Action**: Stratified evaluation by age, gender, ethnicity
 
 #### 5. Data Privacy & Security
 **Patient Data Protection:**
@@ -1358,7 +1358,7 @@ THIS SOFTWARE IS PROVIDED FOR **RESEARCH AND EDUCATIONAL PURPOSES ONLY**.
 
 ---
 
-## 📚 References
+## References
 
 ### Datasets
 1. **BRISC2025 Dataset**: Kaggle. Brain Tumor MRI Dataset. Available at: https://www.kaggle.com/datasets/briscdataset/brisc2025
@@ -1391,24 +1391,24 @@ THIS SOFTWARE IS PROVIDED FOR **RESEARCH AND EDUCATIONAL PURPOSES ONLY**.
 
 ---
 
-## 👨‍💻 Author Information
+## Author Information
 
-**Author**: Kazi Mohammad Saifullah  
-**Email**: kmsaifullah12585@gmail.com  
-**Institution**: BRAC University  
-**Field**: Computer Vision & Medical AI  
-**LinkedIn**: [www.linkedin.com/in/kazi-mohammad-saifullah-5827a5219](https://www.linkedin.com/in/kazi-mohammad-saifullah-5827a5219)  
-**GitHub**: [https://github.com/saifullah-saif](https://github.com/saifullah-saif)  
+**Author**: Kazi Mohammad Saifullah 
+**Email**: kmsaifullah12585@gmail.com 
+**Institution**: BRAC University 
+**Field**: Computer Vision & Medical AI 
+**LinkedIn**: [www.linkedin.com/in/kazi-mohammad-saifullah-5827a5219](https://www.linkedin.com/in/kazi-mohammad-saifullah-5827a5219) 
+**GitHub**: [https://github.com/saifullah-saif](https://github.com/saifullah-saif) 
 
 ### Academic Background
 - **Degree**: B.Sc. in Computer Science & Engineering (Computer Vision & AI)
 - **Specialization**: Deep Learning for Medical Imaging
 - **Research Interests**: 
-  - Semantic Segmentation
-  - Transfer Learning
-  - Explainable AI (XAI)
-  - Medical Image Analysis
-  - Automated Diagnostic Systems
+ - Semantic Segmentation
+ - Transfer Learning
+ - Explainable AI (XAI)
+ - Medical Image Analysis
+ - Automated Diagnostic Systems
 
 ### Project Contributions
 - Designed and implemented U-Net and Attention U-Net architectures
@@ -1419,7 +1419,7 @@ THIS SOFTWARE IS PROVIDED FOR **RESEARCH AND EDUCATIONAL PURPOSES ONLY**.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **BRAC University** for Academic Resources 
 - **Kaggle** for hosting the BRISC2025 dataset
@@ -1429,16 +1429,16 @@ THIS SOFTWARE IS PROVIDED FOR **RESEARCH AND EDUCATIONAL PURPOSES ONLY**.
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 **Summary**:
-- ✅ Commercial use allowed (with proper attribution)
-- ✅ Modification allowed
-- ✅ Distribution allowed
-- ⚠️ No warranty provided
-- ⚠️ Author not liable for damages
+- Commercial use allowed (with proper attribution)
+- Modification allowed
+- Distribution allowed
+- No warranty provided
+- Author not liable for damages
 
 **Medical Use Restriction**:
 While the MIT License permits broad usage, this software **MUST NOT** be used in clinical settings without:
@@ -1448,7 +1448,7 @@ While the MIT License permits broad usage, this software **MUST NOT** be used in
 
 ---
 
-## 📞 Contact & Support
+## Contact & Support
 
 ### Issues & Bug Reports
 - **GitHub Issues**: [https://github.com/saifullah-saif/NeuroScan/issues](https://github.com/saifullah-saif/NeuroScan/issues)
@@ -1465,9 +1465,9 @@ Interested in:
 
 ---
 
-## 🌟 Star History
+## Star History
 
-If you find this project useful, please consider giving it a ⭐ on GitHub!
+If you find this project useful, please consider giving it a star on GitHub!
 
 ```bash
 git clone https://github.com/saifullah-saif/NeuroScan.git
@@ -1477,9 +1477,9 @@ cd NeuroScan
 
 ---
 
-**Last Updated**: January 2026  
-**Version**: 1.0.0  
-**Status**: Research Prototype  
+**Last Updated**: January 2026 
+**Version**: 1.0.0 
+**Status**: Research Prototype 
 **Medical Disclaimer**: Not approved for clinical use
 
 ---
